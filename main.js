@@ -8,29 +8,30 @@ async function getData(key, date) {
 
         console.log(infoFromServer);
 
-        // Date
+        // date
         const date = document.querySelector("#nasa-info");
+        const fullDate = new Date(infoFromServer.date);
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         date.innerHTML = `
-    <p id="date">${infoFromServer.date}</p>
+    <p id="date">${fullDate.toLocaleDateString('en-US', options)}</p>
 `;
 
-        // Videos and images
+        // videos and image
         let imageHtml = '';
         if (infoFromServer.hdurl) {
-            imageHtml = `<p id="link"><img src="${infoFromServer.hdurl}" alt="nasa image" max-width="100%"/></p>`;
+            imageHtml = `<p id="link"><img src="${infoFromServer.hdurl}" alt="nasa image" "style:max-width=100%"/></p>`;
         } else if (infoFromServer.url) {
-            imageHtml = `<p id="link"><iframe src="${infoFromServer.url}" alt="nasa video" max-width="100%"></iframe></p>`;
+            imageHtml = `<p id="link"><iframe src="${infoFromServer.url}" alt="nasa video" "style:max-width=100%" allowfullscreen></iframe></p>`;
         }
         console.log(imageHtml);
 
-        // Other info
+        // other info
         const content = document.querySelector("#nasa-info");
         content.innerHTML += `
     ${imageHtml}
     <p id="title">${infoFromServer.title}</p>
     <p id="description">Explanation: ${infoFromServer.explanation}</p>
-`;
-
+`
 
     } catch (error) {
         console.warn(`Nope: ${error}`);
