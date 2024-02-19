@@ -11,7 +11,7 @@ async function getData(key, date) {
         // date
         const date = document.querySelector("#nasa-info");
         const fullDate = new Date(infoFromServer.date);
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const options = {year: 'numeric', month: 'long', day: 'numeric' };
         date.innerHTML = `
     <p id="date">${fullDate.toLocaleDateString('en-US', options)}</p>
 `;
@@ -19,9 +19,9 @@ async function getData(key, date) {
         // videos and image
         let imageHtml = '';
         if (infoFromServer.hdurl) {
-            imageHtml = `<p id="link"><img src="${infoFromServer.hdurl}" alt="nasa image" "style:max-width=100%"/></p>`;
+            imageHtml = `<p id="link"><img width="600" height="355" src="${infoFromServer.hdurl}" alt="nasa image"></p>`;
         } else if (infoFromServer.url) {
-            imageHtml = `<p id="link"><iframe src="${infoFromServer.url}" alt="nasa video" "style:max-width=100%" allowfullscreen></iframe></p>`;
+            imageHtml = `<p id="link"><iframe width="600" height="355" src="${infoFromServer.url}" alt="nasa video" allowfullscreen></iframe></p>`;
         }
         console.log(imageHtml);
 
@@ -30,7 +30,7 @@ async function getData(key, date) {
         content.innerHTML += `
     ${imageHtml}
     <p id="title">${infoFromServer.title}</p>
-    <p id="description">Explanation: ${infoFromServer.explanation}</p>
+    <p id="description">${infoFromServer.explanation}</p>
 `
 
     } catch (error) {
